@@ -7,39 +7,21 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- add context for properties file -->
-	<context:property-placeholder location = "classpath:sport.properties"/>
-
     <!-- Define your beans here -->
     
     <bean id = "myFortuneService"
     	  class = "com.timothyKornish.springDependencyInjection.HappyFortuneService">
     </bean>
     
-    
     <bean id = "myCoach" 
-    	  class = "com.timothyKornish.springDependencyInjection.TrackCoach">
+    	  class = "com.timothyKornish.springDependencyInjection.TrackCoach"
+    	  init-method = "doMyStartupStuff"
+    	  destroy-method = "doMyCleanupStuff">
     	  
     	  <!-- set up constructor injection -->
     	  <constructor-arg ref = "myFortuneService" />
     </bean>
     
-    <bean id = "myCricketCoach"
-    	  class = "com.timothyKornish.springDependencyInjection.CricketCoach">
-    	  
-    	  <!-- set up setter injection -->
-    	  <property name = "fortuneService" ref = "myFortuneService" />
-    	  <!-- Inject literal values -->
-    	  <property name = "emailAddress" value = "${foo.email}"/>
-    	  <property name = "team" value = "${foo.team}"/>
-    </bean>
-    
-    <!--  
-    <bean id = "myCoach" 
-    	  class = "com.timothyKornish.springdemo.BaseballCoach">
-    	  
-    </bean>
-    -->
 </beans>
 
 
